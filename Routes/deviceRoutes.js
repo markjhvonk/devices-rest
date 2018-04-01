@@ -1,12 +1,15 @@
-var express = require('express');
+var express = require("express");
 
-var routes = function(Device){
+var routes = function(Device) {
     var deviceRouter = express.Router();
-    
-    var deviceController = require('../Controllers/deviceController.js')(Device);
+
+    var deviceController = require("../Controllers/deviceController.js")(
+        Device
+    );
 
     //routes for general post & get methods
-    deviceRouter.route('/')
+    deviceRouter
+        .route("/")
         //trigger controller function to post new item
         .post(deviceController.post)
         //trigger controller function to get list of all items
@@ -14,23 +17,21 @@ var routes = function(Device){
         //trigger controller function to get options
         .options(deviceController.collectionOptions);
 
-
-    //fetch single items    
-    deviceRouter.use('/:deviceId', function(req,res,next){
-        Device.findById(req.params.deviceId, function(err,device){
-            if(err)
-                res.status(500).send(err);
-            else if(device){
+    //fetch single items
+    deviceRouter.use("/:deviceId", function(req, res, next) {
+        Device.findById(req.params.deviceId, function(err, device) {
+            if (err) res.status(500).send(err);
+            else if (device) {
                 req.device = device;
                 next();
-            }
-            else {
-                res.status(404).send('no book found');
+            } else {
+                res.status(404).send("no device found");
             }
         });
-    })
+    });
 
-    deviceRouter.route('/:deviceId') 
+    deviceRouter
+        .route("/:deviceId")
         //trigger controller function to get individual item
         .get(deviceController.get)
         //trigger controller function to update individual item
@@ -43,7 +44,6 @@ var routes = function(Device){
         .options(deviceController.singleOptions);
 
     return deviceRouter;
-    
 };
 
 module.exports = routes;
