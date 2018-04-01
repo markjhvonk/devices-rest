@@ -5,7 +5,8 @@ So in the end these are just the bare bones of a system I thought of for managin
 This api was built using Node.js and the express mvc framework.
 
 ## Demo
-You can go here to fiddle with my live demo, enjoy!
+You can check out the live api [here](http://markvonk.com:8000/api/devices).
+Or follow [this git]() to set up the api ui I made with vue.
 
 ## Setup
 To be able to run this project locally you need to do a few things:
